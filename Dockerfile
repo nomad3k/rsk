@@ -15,6 +15,7 @@ COPY ./build .
 # Run the container under "node" user by default
 USER node
 
+ENV NAME Journey
 # Set NODE_ENV env variable to "production" for faster expressjs
 ENV NODE_ENV production
 
