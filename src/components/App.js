@@ -9,6 +9,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { IntlProvider } from 'react-intl';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
 
@@ -25,6 +26,9 @@ const ContextType = {
   ...ReduxProvider.childContextTypes,
   // Apollo Client
   client: PropTypes.object.isRequired,
+  // ReactIntl
+  intl: IntlProvider.childContextTypes.intl,
+  locale: PropTypes.string,
 };
 
 /**
@@ -60,6 +64,30 @@ class App extends React.PureComponent {
   getChildContext() {
     return this.props.context;
   }
+
+  // NOTE: This methods are not needed if you update URL by setLocale action.
+  //
+  //  componentDidMount() {
+  //    const store = this.props.context && this.props.context.store;
+  //    if (store) {
+  //      this.lastLocale = store.getState().intl.locale;
+  //      this.unsubscribe = store.subscribe(() => {
+  //        const state = store.getState();
+  //        const { newLocale, locale } = state.intl;
+  //        if (!newLocale && this.lastLocale !== locale) {
+  //          this.lastLocale = locale;
+  //          this.forceUpdate();
+  //        }
+  //      });
+  //    }
+  //  }
+  //
+  //  componentWillUnmount() {
+  //    if (this.unsubscribe) {
+  //      this.unsubscribe();
+  //      this.unsubscribe = null;
+  //    }
+  //  }
 
   render() {
     // Here, we are at universe level, sure? ;-)

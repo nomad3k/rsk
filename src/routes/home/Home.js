@@ -9,6 +9,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedRelative } from 'react-intl';
 import { graphql, compose } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import newsQuery from './news.graphql';
@@ -42,7 +43,10 @@ class Home extends React.Component {
                 <article key={item.link} className={s.newsItem}>
                   <h1 className={s.newsTitle}>
                     <a href={item.link}>{item.title}</a>
-                  </h1>
+                  </h1>{' '}
+                  <span className={s.publishedDate}>
+                    <FormattedRelative value={item.pubDate} />
+                  </span>
                   <div
                     className={s.newsDesc}
                     // eslint-disable-next-line react/no-danger

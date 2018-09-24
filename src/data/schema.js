@@ -14,6 +14,12 @@ import {
   queries as DatabaseQueries,
 } from './graphql/Database/schema';
 
+import {
+  schema as IntlSchema,
+  resolvers as IntlResolvers,
+  queries as IntlQueries,
+} from './graphql/Intl/schema';
+
 const RootQuery = [
   `
   # # React-Starter-Kit Querying API
@@ -28,6 +34,7 @@ const RootQuery = [
   type RootQuery {
     ${NewsQueries}
     ${DatabaseQueries}
+    ${IntlQueries}
   }
 `,
 ];
@@ -60,7 +67,7 @@ const SchemaDefinition = [
 
 // Merge all of the resolver objects together
 // Put schema together into one array of schema strings
-const resolvers = merge(NewsResolvers, DatabaseResolvers);
+const resolvers = merge(NewsResolvers, DatabaseResolvers, IntlResolvers);
 
 const schema = [
   ...SchemaDefinition,
@@ -69,6 +76,7 @@ const schema = [
 
   ...NewsSchema,
   ...DatabaseSchema,
+  ...IntlSchema,
 ];
 
 export default makeExecutableSchema({
